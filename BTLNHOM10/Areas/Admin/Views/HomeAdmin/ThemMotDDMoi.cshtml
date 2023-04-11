@@ -1,0 +1,54 @@
+﻿@model BTLNHOM10.Models.DiemThamQuan
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "ThemMotDDMoi";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    BTLNHOM10.Models.QlTourdlN5Context db = new BTLNHOM10.Models.QlTourdlN5Context();
+}
+
+<h1>Thêm Địa Điểm Thăm Quan</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ThemMotDDMoi">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaDd" class="control-label">Mã Địa Điểm</label>
+                <input asp-for="MaDd" class="form-control" />
+                <span asp-validation-for="MaDd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TenDiaDiem" class="control-label">Tên Địa Điểm</label>
+                <input asp-for="TenDiaDiem" class="form-control" />
+                <span asp-validation-for="TenDiaDiem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mien" class="control-label">Miền</label>
+                <input asp-for="Mien" class="form-control" />
+                <span asp-validation-for="Mien" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MoTa" class="control-label">Mô Tả</label>
+                <input asp-for="MoTa" class="form-control" />
+                <span asp-validation-for="MoTa" class="text-danger"></span>
+            </div>
+          @*  <div class="form-group">
+              @Html.LabelFor(model=>model.DiadiemTours, htmlAttributes:new{@class="control-label col-md-2"})
+              <div class="col-md-10">
+                  @foreach(var anh in db.DiadiemTours.ToList())
+                  
+              </div>
+            </div>*@
+           
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

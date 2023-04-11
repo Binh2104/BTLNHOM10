@@ -1,0 +1,56 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model BTLNHOM10.Models.Tour
+
+@{
+    ViewData["Title"] = "ChinhSua";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    BTLNHOM10.Models.Tour db = new BTLNHOM10.Models.Tour(); 
+}
+
+<h1>Chỉnh sửa Tour </h1>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="ChinhSua">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaTour" />
+            <div class="form-group">
+                <label asp-for="TenTour" class="control-label">Tên Tour</label>
+                <input asp-for="TenTour" class="form-control" />
+                <span asp-validation-for="TenTour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GiaCho" class="control-label">Giá Chỗ</label>
+                <input asp-for="GiaCho" class="form-control" />
+                <span asp-validation-for="GiaCho" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anh" class="control-label">Ảnh</label>
+                <input type="file" asp-for="Anh" class="form-control" />
+                <span asp-validation-for="Anh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiemXuatPhat" class="control-label">Điểm Xuất Phát</label>
+                <input asp-for="DiemXuatPhat" class="form-control" />
+                <span asp-validation-for="DiemXuatPhat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="XepHangTour" class="control-label">Xếp hạng Tour</label>
+                <input asp-for="XepHangTour" class="form-control" />
+                <span asp-validation-for="XepHangTour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoNgayDl" class="control-label">Số Ngày Du Lịch</label>
+                <input asp-for="SoNgayDl" class="form-control" />
+                <span asp-validation-for="SoNgayDl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

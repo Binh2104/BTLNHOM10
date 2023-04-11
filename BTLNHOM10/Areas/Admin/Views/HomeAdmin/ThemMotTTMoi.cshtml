@@ -1,0 +1,60 @@
+﻿@model BTLNHOM10.Models.TinTuc
+
+@{
+    ViewData["Title"] = "ThemMotTTMoi";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    BTLNHOM10.Models.NhanVien db = new BTLNHOM10.Models.NhanVien();
+}
+
+<h1>ThemMotTTMoi</h1>
+
+<h4>TinTuc</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ThemMotTTMoi">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaTin" class="control-label">Mã Tin</label>
+                <input asp-for="MaTin" class="form-control" />
+                <span asp-validation-for="MaTin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anh" class="control-label">Ảnh Tin</label>
+                <input type="file" asp-for="Anh" class="form-control" />
+                <span asp-validation-for="Anh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgayDang" class="control-label">Ngày đăng</label>
+                <input type="date" asp-for="NgayDang" class="form-control" />
+                <span asp-validation-for="NgayDang" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaNv" class="control-label">Mã Nhân Viên </label>
+                <select asp-for="MaNv" class="form-control" >
+                @foreach(var item in db.MaNv.ToList() )
+                {
+                    <option >@item</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="MoTa" class="control-label">Mô tả</label>
+                <input asp-for="MoTa" class="form-control" />
+                <span asp-validation-for="MoTa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoiDung" class="control-label">Nội dung</label>
+                <input asp-for="NoiDung" class="form-control" />
+                <span asp-validation-for="NoiDung" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

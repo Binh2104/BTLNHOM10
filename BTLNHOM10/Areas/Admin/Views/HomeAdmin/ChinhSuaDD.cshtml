@@ -1,0 +1,40 @@
+﻿@model BTLNHOM10.Models.DiemThamQuan
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "ChinhSuaDD";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Chỉnh sửa điểm thăm quan </h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ChinhSuaDD">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaDd" />  
+            <div class="form-group">
+                <label asp-for="TenDiaDiem" class="control-label">Tên Địa Điểm</label>
+                <input asp-for="TenDiaDiem" class="form-control" />
+                <span asp-validation-for="TenDiaDiem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mien" class="control-label">Miền</label>
+                <input asp-for="Mien" class="form-control" />
+                <span asp-validation-for="Mien" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MoTa" class="control-label">Mô Tả</label>
+                <input type="text" asp-for="MoTa" class="form-control" />
+                <span asp-validation-for="MoTa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

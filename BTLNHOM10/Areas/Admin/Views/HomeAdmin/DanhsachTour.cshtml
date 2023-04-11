@@ -1,0 +1,82 @@
+﻿@model IEnumerable<BTLNHOM10.Models.Tour>
+@using BTLNHOM10.Models
+@using X.PagedList.Mvc.Core
+@*@model X.PagedList.IPagedList<Tour>*@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "DanhMucTour";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<p>
+    <a asp-action="ThemMotTourMoi">Create New</a>
+</p>
+<p>@TempData["Message"]</p>
+<table class="table">
+    <thead>
+        <tr class ="table-warning">
+            <th >
+                Tên Tour
+            </th>
+            <th>
+               Giá Chỗ
+            </th>
+            <th>
+               Ảnh Tour
+            </th>
+            <th>
+               Điểm Xuất Phát
+            </th>
+            <th>
+                Xếp Hạng Tour
+            </th>
+            <th>
+                Số Ngày Đi
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+            string @cls = "table-success";
+        }
+@foreach (var item in Model) {
+            i = i + 1;
+            if (i % 2 == 0)
+            {
+                cls="table-primary";
+            }
+            <tr class="@cls">
+            <td>
+                @Html.DisplayFor(modelItem => item.TenTour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaCho)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Anh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiemXuatPhat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.XepHangTour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoNgayDl)
+            </td>
+            <td>
+                <a asp-action="ChinhSua" asp-route-matour="@item.MaTour">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaTour">Details</a> |
+                <a asp-action="XoaTour" asp-route-matour="@item.MaTour">Delete</a>|
+                <a asp-action="themdiatiemtours">Thêm Địa Điểm</a>|
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@*@Html.PagedListPager(Model,page=>Url.Action("DanhSachTour",new{page=page}),new X.PagedList.Web.Common.PagedListRenderOptionsBase(){
+    LiElementClasses= new List<String>{"page-item"},
+    PageClasses= new List<String>{"page-link"}
+})*@

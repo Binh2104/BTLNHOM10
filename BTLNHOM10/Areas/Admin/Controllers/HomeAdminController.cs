@@ -13,7 +13,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
     public class HomeAdminController : Controller
     {
         QlTourdlN5Context db = new QlTourdlN5Context();
-
+        //test
         [Route("")]
         [Route("Index")]
         public IActionResult Index()

@@ -13,11 +13,12 @@
 <p>
     <a asp-action="ThemMotTTMoi">Create New</a>
 </p>
-<table class="table">
+
+<table class="table table_tintuc table-bordered">
     <thead>
-        <tr class="table-warning">
+        <tr>
             <th>
-               Anh
+                Anh
             </th>
             <th>
                 Ngày Đăng
@@ -25,8 +26,8 @@
             <th>
                 Mô Tả
             </th>
-            <th style="width: 20px">
-               Nội dung
+            <th>
+                Nội dung
             </th>
             <th>
                 Mã Nhân Viên Đăng
@@ -34,40 +35,47 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
-        @{
-            int i = 0;
-            string @cls = "table-success";
-        }
-        @foreach (var item in Model)
+    <tbody id="tbody-tintuc">
+        @foreach(var item in Model)
         {
-            i = i + 1;
-            if (i % 2 == 0)
-            {
-                cls = "table-primary";
+               
+        <tr>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Anh)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.NgayDang)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.MoTa)
+                </td>
+                <td id="table_content">
+                        @Html.DisplayFor(modelItem => item.NoiDung)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.MaNv)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaTin">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaTin">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaTin">Delete</a>
+                </td>
+            </tr>
             }
-            <tr class="@cls">
-            <td>
-                @Html.DisplayFor(modelItem => item.Anh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayDang)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MoTa)
-            </td>
-                <td style=" width: 20px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color:red;">
-                @Html.DisplayFor(modelItem => item.NoiDung)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaNvNavigation.MaNv)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaTin">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaTin">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaTin">Delete</a>
-            </td>
-        </tr>
-}
     </tbody>
 </table>
+<style>
+    table.table_tintuc {
+    table-layout: fixed;
+    width: 100%;
+    
+}
+
+td, th {
+    max-width: 200px; /* adjust the width to your preference */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+</style>

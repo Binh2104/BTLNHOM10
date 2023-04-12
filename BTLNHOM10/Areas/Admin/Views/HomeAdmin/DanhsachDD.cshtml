@@ -16,14 +16,15 @@
     <thead>
         <tr class="table-warning">
             <th>
-                @Html.DisplayNameFor(model => model.Mien)
+                Tên Địa Điểm
+            </th>
+            <th>
+               Miền
             </th>
            @* <th>
                 @Html.DisplayNameFor(model => model.MoTa)
             </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.TenDiaDiem)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -39,14 +40,15 @@
                 cls="table-primary";
             }
             <tr class="@cls">
-            <td>
-                @Html.DisplayFor(modelItem => item.Mien)
-            </td>
+          
             @*<td>
                 @Html.DisplayFor(modelItem => item.MoTa)
             </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.TenDiaDiem)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Mien)
             </td>
             <td>
                 <a asp-action="ChinhSuaDD" asp-route-madd="@item.MaDd">Edit</a> |

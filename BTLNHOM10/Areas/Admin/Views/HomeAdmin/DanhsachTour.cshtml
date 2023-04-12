@@ -7,9 +7,7 @@
     ViewData["Title"] = "DanhMucTour";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<p>
-    <a asp-action="ThemMotTourMoi">Create New</a>
-</p>
+<button><a asp-action="ThemMotTourMoi">Thêm Mới</a></button>
 <p>@TempData["Message"]</p>
 <table class="table">
     <thead>
@@ -66,11 +64,9 @@
                 @Html.DisplayFor(modelItem => item.SoNgayDl)
             </td>
             <td>
-                <a asp-action="ChinhSua" asp-route-matour="@item.MaTour">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaTour">Details</a> |
-                <a asp-action="XoaTour" asp-route-matour="@item.MaTour">Delete</a>|
-                <a asp-action="themdiatiemtours">Thêm Địa Điểm</a>|
-                
+                <a asp-action="ChinhSua" asp-route-mt="@item.MaTour">Chỉnh Sửa</a> |
+                <a asp-action="Details" asp-route-id="@item.MaTour">Chi Tiết</a> |
+                <a asp-action="XoaTour" asp-route-matour="@item.MaTour">Xóa</a>
             </td>
         </tr>
 }

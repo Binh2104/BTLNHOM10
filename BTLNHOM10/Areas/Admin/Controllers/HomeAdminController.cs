@@ -1,6 +1,7 @@
 ﻿using BTLNHOM10.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using System.Net.WebSockets;
 using X.PagedList;
@@ -24,33 +25,26 @@ namespace BTLNHOM10.Areas.Admin.Controllers
             return View();
         }
         //Dia Diem-Tour
-        [Route("themdiadiemtours")]
+        [Route("themdiadiemtourss")]
         [HttpGet]
-        public IActionResult themdiadiemtours()
+        public IActionResult themdiadiemtourss()
         {
-            var t = db.Tours.ToList();
-            ViewBag.MaTour = new SelectList(db.Tours.ToList(), "MaTour", "TenTour");
-            ViewBag.MaDd = new SelectList(db.DiemThamQuans.ToList(), "MaDd","TenDiaDiem");
+            ViewBag.MaTour = new SelectList(db.Tours.ToList(), "MaTour","TenTour");
+            ViewBag.MaDd = new SelectList(db.DiemThamQuans.ToList(), "MaDd", "TenDiaDiem");
+            /* ViewBag.MaDd= new SelectList(db.Tours).ToLis*/
             return View();
         }
-        [Route("themdiadiemtours")]
+        [Route("themdiadiemtourss")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult themdiadiemtours(DiadiemTour ddt)
-        {
-            if (ModelState.IsValid)
-            {
+        public IActionResult themdiadiemtourss(DiadiemTour ddt)
+        {         
                 db.DiadiemTours.Add(ddt);
                 db.SaveChanges();
-                TempData["Message"] = "Thanh cong";
-                return RedirectToAction("DanhsachTour");
-            }
-            else
-            {
-                TempData["Message"] = "Loi";
-            }
-            return View(ddt);
+                return RedirectToAction("DanhSachTour");
         }
+        //xoa dia diem cho tour
+
         //TinTuc
         [Route("DanhsachTT")]
         public IActionResult DanhsachTT(int page = 1)
@@ -97,7 +91,6 @@ namespace BTLNHOM10.Areas.Admin.Controllers
 
         public IActionResult ChinhSuaDD(String maDD)
         {
-
             DiemThamQuan madd = db.DiemThamQuans.Find(maDD);
             return View(madd);
         }
@@ -110,7 +103,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
             {
                 db.Entry(diadiem).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("DanhsachDD");
             }
             return View(diadiem);
         }
@@ -140,17 +133,12 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         public IActionResult XoaDD(string madd)
         {
             TempData["Message"] = "";
-            var listDD = db.DiemThamQuans.Where(x => x.MaDd == madd);
-            foreach (var item in listDD)
+            var listDDT = db.DiadiemTours.Where(x => x.MaDd == madd).ToList();
+            if (listDDT.Count() > 0)
             {
-                if (db.DiadiemTours.Where(x => x.MaDd == item.MaDd) != null)
-                {
-                    return RedirectToAction("DanhsachDD");
-                }
+                TempData["Message"] = "Không xóa được";
+                return RedirectToAction("DanhsachDD");
             }
-            var listAnh = db.DiadiemTours.Where(x => x.MaDd == madd);
-            if (listAnh != null) db.RemoveRange(listAnh);
-            if (listDD != null) db.RemoveRange(listDD);
             db.Remove(db.DiemThamQuans.Find(madd));
             db.SaveChanges();
             return RedirectToAction("DanhsachDD");
@@ -169,25 +157,24 @@ namespace BTLNHOM10.Areas.Admin.Controllers
 
         [Route("ChinhSua")]
         [HttpGet]
-
-        public IActionResult ChinhSua(String matour)
+        public IActionResult ChinhSua(String mt)
         {
 
-            Tour sp = db.Tours.Find(matour);
+            Tour sp = db.Tours.Find(mt);
             return View(sp);
         }
         [Route("ChinhSua")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChinhSua(Tour matour)
+        public IActionResult ChinhSua(Tour matours)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(matour).State = EntityState.Modified;
+                db.Entry(matours).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("DanhSachTour");
             }
-            return View(matour);
+            return View(matours);
         }
         //Thêm mới Tour
         [Route("ThemMotTourMoi")]
@@ -253,11 +240,40 @@ namespace BTLNHOM10.Areas.Admin.Controllers
                TempData["Message"] = "Không xóa được";
                return RedirectToAction("DanhsachTour");
             }
-            var listAnh = db.AnhTours.Where(x => x.MaTour == matour);
-            if (listAnh != null) db.RemoveRange(listAnh);
+            var list = db.DiadiemTours.Where(x => x.MaTour == matour);
+            if (list != null) db.RemoveRange(list);
             db.Remove(db.Tours.Find(matour));
             db.SaveChanges();
             return RedirectToAction("DanhsachTour");
+        }
+        //Booking
+        //Danhsachbooking
+        [Route("DanhsachBooking")]
+        public IActionResult DanhsachBooking(int page = 1)
+        {
+            int pageNumber = page;
+            int pageSize = 8;
+            var lstt = db.Bookings.OrderBy(x => x.MaBk).ToList();
+            PagedList<Booking> lst = new PagedList<Booking>(lstt, pageNumber, pageSize);
+            return View(lst);
+        }
+        [Route("Chitietbooking")]
+        public IActionResult Chitietbooking(string mabk)
+        {
+            var lst = (from a in db.Bookings
+                       join b in db.Tours on a.MaTour equals b.MaTour
+                       join c in db.KhachHangs on a.MaKh equals c.MaKh
+                       where a.MaBk == mabk
+                       select new
+                       {
+                           MaBk = a.MaBk,
+                           TenKh = c.TenKh,
+                           TenTour = b.TenTour,
+                           SoChoDat = a.SoChoBooking,
+                           NgayDat = a.NgayDat,
+                           TongTien = a.SoChoBooking * b.GiaCho,
+                       }).ToList();
+            return View(lst);
         }
     }
 }

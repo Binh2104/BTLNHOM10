@@ -43,7 +43,7 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="index.html"><img src="../layoutdmin/assets/images/logo.svg" alt="logo" /></a>
+                <a class="navbar-brand brand-logo" href="index.html"><img src="../layoutdmin/assets/images/Thank.png" alt="logo" /></a>
                 <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../layoutdmin/assets/images/logo-mini.svg" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -204,17 +204,10 @@
                                 <!--change to offline or busy as needed-->
                             </div>
                             <div class="nav-profile-text d-flex flex-column">
-                                <span class="font-weight-bold mb-2">David Grey. H</span>
+                                <span class="font-weight-bold mb-2">Admin</span>
                                 <span class="text-secondary text-small">Project Manager</span>
                             </div>
                             <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">
-                            <span class="menu-title">Dashboard</span>
-                            <i class="mdi mdi-home menu-icon"></i>
-                            <i class="mdi mdi-home menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -228,19 +221,21 @@
                                 <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachTour">Danh Mục Tour</a></li>
                                 <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachDD">Danh Mục Điểm Đến</a></li>
                                 <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachTT">Danh Mục Tin Tức</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="themdiadiemtourss">Thêm Địa Điểm Cho Tour</a></li>
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../layoutdmin/pages/icons/mdi.html">
-                            <span class="menu-title">Icons</span>
-                            <i class="mdi mdi-contacts menu-icon"></i>
+                        <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachbooking">
+                            <span class="menu-title">Booking</span>
+                            <i class="mdi mdi-format-list-bulleted menu-icon"></i>                        
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../layoutdmin/pages/forms/basic_elements.html">
                             <span class="menu-title">Forms</span>
-                            <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                            <i class="mdi mdi-format-list-bulleted menu-icon"></i> 
+                            <i class="mdi mdi-contacts menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">

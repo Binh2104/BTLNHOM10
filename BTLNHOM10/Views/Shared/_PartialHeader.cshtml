@@ -1,4 +1,5 @@
-﻿	<!-- Navbar -->
+﻿@using Microsoft.AspNetCore.Http;	
+<!-- Navbar -->
 <nav class="navbar">
 	<div class="container">
 		<div class="navbar-bars">
@@ -12,12 +13,24 @@
 				<li><a asp-controller="Home" asp-action="ThuVien">Thư Viện</a></li>
 				<li><a data-slide="slides" data-slide-target="#discover">Khám Phá</a></li>
 				<li><a asp-controller="Home" asp-action="TinTuc">Tin Tức</a></li>
-				<li><a asp-controller="Access" asp-action="Login"><button class="btn-login" id="hihi">Đăng nhập</button></a></li>
+				@if (Context.Session.GetString("UserName")==null)
+				{
+					<li>
+					<a asp-controller="Access" asp-action="Login">
+						<button class="btn-login" id="hihi">Đăng nhập</button>
+					</a>
+					</li>
+				}
+				else
+				{
+					<li>
+					<a asp-controller="Access" asp-action="Logout">
+						<button class="btn-login" id="hihi">Đăng Xuất</button>
+					</a>
+				</li>
+				}
 
-
-
-
-
+				
 			</ul>
 		</div>
 	</div>
@@ -32,6 +45,14 @@
 		<li class="sidebar-list-hover"><a asp-controller="Home" asp-action="ThuVien">Gallery</a></li>
 		<li class="sidebar-list-hover"><a href="index.html#discover">Discover</a></li>
 		<li class="sidebar-list-hover"><a asp-controller="Home" asp-action="TinTuc">Tin Tức</a></li>
+		@if (Context.Session.GetString("UserName") == null)
+		{
+			<li><a class="btn btn-orange btn-round" asp-controller="Access" asp-action="Login">Đăng Nhập</a></li>
+		}
+		else
+		{
+			<li><a class="btn btn-orange btn-round" asp-controller="Access" asp-action="Logout">Đăng Xuất</a></li>
+		}
 		<li><a class="btn btn-orange btn-round" href="login.html"> Đăng Nhập</a></li>
 	</ul>
 </div>

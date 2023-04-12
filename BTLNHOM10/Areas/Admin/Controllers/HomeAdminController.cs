@@ -14,8 +14,10 @@ namespace BTLNHOM10.Areas.Admin.Controllers
     {
         QlTourdlN5Context db = new QlTourdlN5Context();
         //test
+        string username = "";
         [Route("")]
         [Route("Index")]
+        
         public IActionResult Index()
         {
             /*  if (Session["U"])*/

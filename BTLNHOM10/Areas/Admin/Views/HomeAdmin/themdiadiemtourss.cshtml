@@ -1,29 +1,27 @@
 ﻿@model BTLNHOM10.Models.DiadiemTour
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "themdiadiemtours";
+    ViewData["Title"] = "themdiadiemtourss";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>themdiadiemtours</h1>
-
-<h4>DiadiemTour</h4>
+<h1 style="font-weight:bold">Thêm Địa Điểm Cho Tour</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="themdiadiemtours">
+        <form asp-action="themdiadiemtourss">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="MaDd" class="control-label"></label>
+                <label asp-for="MaDd" class="control-label">Điểm Thăm Quan</label>
                 <select asp-for="MaDd" class ="form-control" asp-items="ViewBag.MaDd"></select>
             </div>
             <div class="form-group">
-                <label asp-for="MaTour" class="control-label"></label>
+                <label asp-for="MaTour" class="control-label">Tour</label>
                 <select asp-for="MaTour" class ="form-control" asp-items="ViewBag.MaTour"></select>
             </div>
             <div class="form-group">
-                <label asp-for="TenFileAnh" class="control-label"></label>
-                <input asp-for="TenFileAnh" class="form-control" />
+                <label asp-for="TenFileAnh" class="control-label">Tên File Ảnh Địa Điểm</label>
+                <input type="file" asp-for="TenFileAnh" class="form-control" />
                 <span asp-validation-for="TenFileAnh" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -42,6 +40,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

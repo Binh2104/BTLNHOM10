@@ -1,8 +1,66 @@
-﻿
+﻿@model BTLNHOM10.Models.Booking
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Chitietbooking";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    
 }
-
 <h1>Chitietbooking</h1>
 
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <dl class="row">
+         <dt class = "col-sm-2">
+            Tên khách hàng đặt 
+        </dt>
+        <dd class = "col-sm-10">
+            @foreach (var item in ViewBag.tenkhach)
+            {
+                @item.tenkhach.ToString()
+            }
+
+        </dd>
+         <dt class = "col-sm-2">
+            Tên Tour
+        </dt>
+        <dd class = "col-sm-10">
+            @foreach (var item in ViewBag.tenkhach)
+            {
+                       <a asp-controller="Home" asp-action="Chitiettour" asp-route-matour="@item.matour" >@item.tentour.ToString()</a> 
+
+            }
+         <dt class = "col-sm-2">
+            Sỗ chỗ đặt:
+        </dt>
+        <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.SoChoBooking)
+        </dd>
+        <dt class = "col-sm-2">
+            Ngày Đi:
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NgayDi)
+        </dd>
+        <dt class = "col-sm-2">
+            Ngày đặt:
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NgayDat)
+        </dd>
+        <dt class = "col-sm-2">
+            Tên nhân Viên đặt đơn
+        </dt>
+        <dd class = "col-sm-10">
+            @foreach (var item in ViewBag.tenkhach)
+            {
+                @item.tennv.ToString()                
+            }
+        </dd>
+       
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="DanhsachBooking">Back to List</a>
+</div>

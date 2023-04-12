@@ -1,0 +1,71 @@
+﻿@model IEnumerable<BTLNHOM10.Models.NhanVien>
+@using BTLNHOM10.Models
+@using X.PagedList.Mvc.Core
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "danhsachnhansu";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Danh Sách Nhân Viên</h1>
+<p>@TempData["Message"]</p>
+<p>
+    <a asp-action="themnhanvien">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr class="table-warning">
+            <th>
+               Tên Nhân Viên
+            </th>
+            <th>
+                Giới Tính
+            </th>
+            <th>
+               Số Điện Thoại
+            </th>
+            <th>
+                Địa Chỉ
+            </th>
+            <th>
+                Tên Tài Khoản
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+            string @cls = "table-success";
+        }
+        @foreach (var item in Model)
+        {
+            i = i + 1;
+            if (i % 2 == 0)
+            {
+                cls = "table-primary";
+            }
+            <tr class="@cls">
+            <td>
+                @Html.DisplayFor(modelItem => item.TenNv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GioiTinh)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoDienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaNv">Chỉnh Sửa</a> |
+                <a asp-action="xoaNV" asp-route-manv="@item.MaNv">Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

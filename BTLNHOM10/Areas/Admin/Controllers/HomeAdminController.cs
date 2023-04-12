@@ -1,10 +1,10 @@
 ﻿using BTLNHOM10.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
-using System.Net.WebSockets;
+using Thang.Models.Authentication;
 using X.PagedList;
+
 
 namespace BTLNHOM10.Areas.Admin.Controllers
 {
@@ -15,18 +15,21 @@ namespace BTLNHOM10.Areas.Admin.Controllers
     {
         QlTourdlN5Context db = new QlTourdlN5Context();
         //test
-        string username = "";
         [Route("")]
         [Route("Index")]
-        
+        [Authentication]
         public IActionResult Index()
         {
+            ViewBag.Username = HttpContext.Session.GetString("UserName");
+
             /*  if (Session["U"])*/
             return View();
         }
+
         //Dia Diem-Tour
         [Route("themdiadiemtourss")]
         [HttpGet]
+        [Authentication]
         public IActionResult themdiadiemtourss()
         {
             ViewBag.MaTour = new SelectList(db.Tours.ToList(), "MaTour","TenTour");
@@ -37,6 +40,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         [Route("themdiadiemtourss")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
         public IActionResult themdiadiemtourss(DiadiemTour ddt)
         {         
                 db.DiadiemTours.Add(ddt);
@@ -47,6 +51,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
 
         //TinTuc
         [Route("DanhsachTT")]
+        [Authentication]
         public IActionResult DanhsachTT(int page = 1)
         {
             int pageNumber = page;
@@ -57,6 +62,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         }
         [Route("ThemMotTTMoi")]
         [HttpGet]
+        [Authentication]
         public IActionResult ThemMotTTMoi()
         {
             return View();
@@ -64,6 +70,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         [Route("ThemMotTTMoi")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
         public IActionResult ThemMotTTMoi(TinTuc tt)
         {
             if (ModelState.IsValid)
@@ -76,6 +83,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         }
         //DIEMTHAMQUAN
         [Route("DanhsachDD")]
+        [Authentication]
         public IActionResult DanhsachDD(int page = 1)
         {
             int pageNumber = page;
@@ -88,6 +96,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         //chỉnh sửa thông tin điểm thăm quan
         [Route("ChinhSuaDD")]
         [HttpGet]
+        [Authentication]
 
         public IActionResult ChinhSuaDD(String maDD)
         {
@@ -97,6 +106,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         [Route("ChinhSuaDD")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
         public IActionResult ChinhSuaDD(DiemThamQuan diadiem)
         {
             if (ModelState.IsValid)
@@ -110,14 +120,16 @@ namespace BTLNHOM10.Areas.Admin.Controllers
 		// them mot diem tham quan
 		[Route("ThemMotDDMoi")]
 		[HttpGet]
-		public IActionResult ThemMotDDMoi()
+        [Authentication]
+        public IActionResult ThemMotDDMoi()
 		{
 			return View();
 		}
 		[Route("ThemMotDDMoi")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult ThemMotDDMoi(DiemThamQuan dd)
+        [Authentication]
+        public IActionResult ThemMotDDMoi(DiemThamQuan dd)
 		{
 			if (ModelState.IsValid)
 			{
@@ -130,6 +142,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         //xóa điểm thăm quan
         [Route("XoaDD")]
         [HttpGet]
+        [Authentication]
         public IActionResult XoaDD(string madd)
         {
             TempData["Message"] = "";
@@ -145,6 +158,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         }
         //TOUR
         [Route("DanhsachTour")]
+        [Authentication]
         public IActionResult DanhsachTour(int page = 1)
         {
             int pageNumber = page;
@@ -157,6 +171,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
 
         [Route("ChinhSua")]
         [HttpGet]
+        [Authentication]
         public IActionResult ChinhSua(String mt)
         {
 
@@ -166,6 +181,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         [Route("ChinhSua")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
         public IActionResult ChinhSua(Tour matours)
         {
             if (ModelState.IsValid)
@@ -179,6 +195,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         //Thêm mới Tour
         [Route("ThemMotTourMoi")]
         [HttpGet]
+        [Authentication]
         public IActionResult ThemMotTourMoi()
         {
             return View();
@@ -186,6 +203,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         [Route("ThemMotTourMoi")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authentication]
         public IActionResult ThemMotTourMoi(Tour tour)
         {
             if (string.IsNullOrEmpty(tour.MaTour) == true)
@@ -231,6 +249,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         //Xóa Tour
         [Route("XoaTour")]
         [HttpGet]
+        [Authentication]
         public IActionResult XoaTour(string matour)
         {
             TempData["Message"] = "";
@@ -249,6 +268,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         //Booking
         //Danhsachbooking
         [Route("DanhsachBooking")]
+        [Authentication]
         public IActionResult DanhsachBooking(int page = 1)
         {
             int pageNumber = page;
@@ -257,23 +277,122 @@ namespace BTLNHOM10.Areas.Admin.Controllers
             PagedList<Booking> lst = new PagedList<Booking>(lstt, pageNumber, pageSize);
             return View(lst);
         }
+        [Route("ChiTietTinTuc")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult ChiTietTinTuc(string id)
+        {
+            
+            var ct= db.TinTucs.SingleOrDefault(m=>m.MaTin== id);
+            return View(ct);
+        }
         [Route("Chitietbooking")]
+        [Authentication]
         public IActionResult Chitietbooking(string mabk)
         {
-            var lst = (from a in db.Bookings
-                       join b in db.Tours on a.MaTour equals b.MaTour
-                       join c in db.KhachHangs on a.MaKh equals c.MaKh
-                       where a.MaBk == mabk
-                       select new
-                       {
-                           MaBk = a.MaBk,
-                           TenKh = c.TenKh,
-                           TenTour = b.TenTour,
-                           SoChoDat = a.SoChoBooking,
-                           NgayDat = a.NgayDat,
-                           TongTien = a.SoChoBooking * b.GiaCho,
-                       }).ToList();
+            var tenkhach = (from i in db.Bookings 
+                            join x in db.KhachHangs on i.MaKh equals x.MaKh 
+                            join y in db.Tours on i.MaTour equals y.MaTour  
+                            join z in db.NhanViens on i.MaNv equals z.MaNv
+                            where i.MaBk==mabk select new
+                            {
+                                tenkhach=x.TenKh,
+                                tentour=y.TenTour,
+                                tennv= z.TenNv,
+                                matour=i.MaTour
+                            }).ToList();
+            ViewBag.tenkhach = tenkhach;
+            var ct = db.Bookings.SingleOrDefault(m => m.MaBk == mabk);
+            return View(ct);
+        }
+        //nhan su
+        [Route("danhsachnhansu")]
+        [Authentication]
+        public IActionResult danhsachnhansu(int page = 1)
+        {
+            int pageNumber = page;
+            int pageSize = 8;
+            var lstnv = db.NhanViens.OrderBy(x => x.TenNv).ToList();
+            PagedList<NhanVien> lst = new PagedList<NhanVien>(lstnv, pageNumber, pageSize);
             return View(lst);
         }
+        //themnhanvien
+        [Route("themnhanvien")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult themnhanvien()
+        {           
+            ViewBag.UserName = new SelectList(db.TaiKhoans, "UserName", "UserName");
+            return View();
+        }
+        [Route("themnhanvien")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authentication]
+        public IActionResult themnhanvien(NhanVien nv)
+        {
+            if (ModelState.IsValid)
+            {
+                db.NhanViens.Add(nv);
+                db.SaveChanges();
+                return RedirectToAction("danhsachnhansu");
+            }
+            return View(nv);
+        }
+        //Xóa nhân viên 
+        [Route("xoaNV")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult xoaNV(string manv)
+        {
+            var listBooking = db.Bookings.Where(x => x.MaNv == manv).ToList();
+            if (listBooking.Count() > 0)
+            {
+                TempData["Message"] = "Không xóa được";
+                return RedirectToAction("danhsachnhansu");
+            }
+            db.Remove(db.NhanViens.Find(manv));
+            db.SaveChanges();
+            return RedirectToAction("danhsachnhansu");
+        }
+        //Tài Khoản 
+        [Route("danhsachtknv")]
+        [Authentication]
+        public IActionResult danhsachtknv()
+        {
+            var lsttknv = (from a in db.TaiKhoans where a.Loai ==1 select a).ToList();
+            return View(lsttknv);
+        }
+        //Xoa tai khoan
+        [Route("xoatknv")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult xoatknv(string username)
+        {
+            var listtknv = db.NhanViens.Where(x => x.UserName == username).ToList();
+            if (listtknv.Count() > 0)
+            {
+                TempData["Message"] = "Không xóa được";
+                return RedirectToAction("danhsachtknv");
+            }
+            db.Remove(db.TaiKhoans.Find(username));
+            db.SaveChanges();
+            return RedirectToAction("danhsachtknv");
+        }
+        [Route("themtknv")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authentication]
+        public IActionResult themtknv(TaiKhoan tk)
+        {
+            if (ModelState.IsValid)
+            {
+                db.TaiKhoans.Add(tk);
+                db.SaveChanges();
+                return RedirectToAction("danhsachtknv");
+            }
+            return View(tk);
+        }
+
     }
 }

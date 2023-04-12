@@ -1,4 +1,5 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Http;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -204,7 +205,7 @@
                                 <!--change to offline or busy as needed-->
                             </div>
                             <div class="nav-profile-text d-flex flex-column">
-                                <span class="font-weight-bold mb-2">Admin</span>
+                                <span class="font-weight-bold mb-2">@ViewBag.username</span>
                                 <span class="text-secondary text-small">Project Manager</span>
                             </div>
                             <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
@@ -218,10 +219,13 @@
                         </a>
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachTour">Danh Mục Tour</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachDD">Danh Mục Điểm Đến</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachTT">Danh Mục Tin Tức</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="themdiadiemtourss">Thêm Địa Điểm Cho Tour</a></li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachTour">Danh Mục Tour<i class="mdi mdi-bike menu-icon"></i></a>
+                                   
+                                </li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachDD">Danh Mục Điểm Đến  <i class="mdi mdi-map-marker menu-icon"></i></a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachTT">Danh Mục Tin Tức<i class="mdi mdi-library-books menu-icon"></i></a> </li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="themdiadiemtourss">Thêm Địa Điểm Cho Tour<i class="mdi mdi-arrange-bring-forward menu-icon"></i></a></li>
                             </ul>
                         </div>
                     </li>
@@ -232,16 +236,32 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../layoutdmin/pages/forms/basic_elements.html">
-                            <span class="menu-title">Forms</span>
-                            <i class="mdi mdi-format-list-bulleted menu-icon"></i> 
-                            <i class="mdi mdi-contacts menu-icon"></i>
+                        <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachnhansu">
+                            <span class="menu-title">Nhân Sự</span>                           
+                            <i class="mdi mdi-account-card-details menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basicc" aria-expanded="false" aria-controls="ui-basicc">
+                            <span class="menu-title">Tài Khoản</span>
+                            <i class="menu-arrow"></i>
+                            <i class="mdi mdi-account-key menu-icon"></i>
+                        </a>
+                        <div class="collapse" id="ui-basicc">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachtknv">Danh Mục Tài Khoản<i class="mdi mdi-bike menu-icon"></i></a>
+                                </li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachDD">Danh Mục Điểm Đến  <i class="mdi mdi-map-marker menu-icon"></i></a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="danhsachTT">Danh Mục Tin Tức<i class="mdi mdi-library-books menu-icon"></i></a> </li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="homeadmin" asp-action="themdiadiemtourss">Thêm Địa Điểm Cho Tour<i class="mdi mdi-arrange-bring-forward menu-icon"></i></a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="../layoutdmin/pages/charts/chartjs.html">
-                            <span class="menu-title">Charts</span>
-                            <i class="mdi mdi-chart-bar menu-icon"></i>
+                            <span class="menu-title">Tài Khoản</span>
+                            <i class="mdi mdi-account-key menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">

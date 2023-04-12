@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BTLNHOM10.Models.TaiKhoan>
+
+@{
+    ViewData["Title"] = "danhsachtknv";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>danhsachtknv</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tên Đăng Nhập
+            </th>
+            <th>
+                Mật Khẩu
+            </th>
+            <th>
+               Loại
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>         
+            <td>
+                  Admin
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.UserName">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UserName">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UserName">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

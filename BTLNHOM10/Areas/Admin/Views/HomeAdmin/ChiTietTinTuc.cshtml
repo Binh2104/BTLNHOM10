@@ -1,0 +1,50 @@
+﻿@model BTLNHOM10.Models.TinTuc
+
+@{
+    ViewData["Title"] = "ChiTietTinTuc";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    string anh = "../../img/AnhTinTuc/" + @Html.DisplayFor(model => model.Anh);
+}
+
+<h1>ChiTietTinTuc</h1>
+
+<div>
+    <h4>TinTuc</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+           Ảnh
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="@Url.Content("../../img/AnhTinTuc/"+Model.Anh)" class="image">
+        </dd>
+        <dt class = "col-sm-2">
+          Ngày Đăng
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NgayDang)
+        </dd>
+        <dt class = "col-sm-2">
+           Mô Tả
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MoTa)
+        </dd>
+        <dt class = "col-sm-2">
+            Nội dung
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NoiDung)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MaNvNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaNvNavigation.MaNv)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.MaTin">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

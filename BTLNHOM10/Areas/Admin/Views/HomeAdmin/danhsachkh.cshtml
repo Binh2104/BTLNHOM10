@@ -1,0 +1,78 @@
+﻿@model IEnumerable<BTLNHOM10.Models.KhachHang>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "danhsachkh";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Danh Sách Khách Hàng</h1>
+
+<table class="table">
+    <thead>
+        <tr class="table-warning">
+            <th>
+                Tên Khách Hàng
+            </th> 
+            <th>
+                Ngày Sinh
+            </th>
+            <th>
+                Giới Tính
+            </th>
+            <th>
+                Số Điện Thoại
+            </th>           
+            <th>
+                Địa Chỉ
+            </th>
+           
+            <th>
+                Email
+            </th>
+            <th>
+                Tên Đăng Nhập
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+            string @cls = "table-success";
+        }
+        @foreach (var item in Model)
+        {
+            i = i + 1;
+            if (i % 2 == 0)
+            {
+                cls = "table-primary";
+            }
+            <tr class="@cls">
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenKh)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>  
+            <td>
+                @Html.DisplayFor(modelItem => item.GioiTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sdt)
+            </td>           
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>         
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                <a asp-action="chitietkh" asp-route-makh="@item.MaKh">Details</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

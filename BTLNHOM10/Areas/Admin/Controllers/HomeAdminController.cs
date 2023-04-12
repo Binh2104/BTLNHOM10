@@ -54,43 +54,19 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         [Authentication]
         public IActionResult DanhsachTT(int page = 1)
         {
-            int pageNumber = page;
-            int pageSize = 8;
+          
             var lstTT = db.TinTucs.OrderBy(x => x.MaTin).ToList();
-            PagedList<TinTuc> lst = new PagedList<TinTuc>(lstTT, pageNumber, pageSize);
-            return View(lst);
-        }
-        [Route("ThemMotTTMoi")]
-        [HttpGet]
-        [Authentication]
-        public IActionResult ThemMotTTMoi()
-        {
-            return View();
-        }
-        [Route("ThemMotTTMoi")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authentication]
-        public IActionResult ThemMotTTMoi(TinTuc tt)
-        {
-            if (ModelState.IsValid)
-            {
-                db.TinTucs.Add(tt);
-                db.SaveChanges();
-                return RedirectToAction("DanhSachTT");
-            }
-            return View(tt);
+    
+            return View(lstTT);
         }
         //DIEMTHAMQUAN
         [Route("DanhsachDD")]
         [Authentication]
-        public IActionResult DanhsachDD(int page = 1)
+        public IActionResult DanhsachDD()
         {
-            int pageNumber = page;
-            int pageSize = 8;
-            var lstDD = db.DiemThamQuans.OrderBy(x => x.TenDiaDiem).ToList();
-            PagedList<DiemThamQuan> lst = new PagedList<DiemThamQuan>(lstDD, pageNumber, pageSize);
-            return View(lst);
+                      var lstDD = db.DiemThamQuans.OrderBy(x => x.TenDiaDiem).ToList();
+      
+            return View(lstDD);
         }
        
         //chỉnh sửa thông tin điểm thăm quan
@@ -162,7 +138,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         public IActionResult DanhsachTour(int page = 1)
         {
             int pageNumber = page;
-            int pageSize = 8;
+            int pageSize = 15;
             var lstTour = db.Tours.OrderBy(x => x.TenTour).ToList();
             PagedList<Tour> lst = new PagedList<Tour>(lstTour, pageNumber, pageSize);
             return View(lst);
@@ -206,45 +182,13 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         [Authentication]
         public IActionResult ThemMotTourMoi(Tour tour)
         {
-            if (string.IsNullOrEmpty(tour.MaTour) == true)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Mã Tour Không Được Bỏ Trống!");
-                return View(tour);
-            }
-            if (string.IsNullOrEmpty(tour.TenTour)== true)
-            {
-                ModelState.AddModelError("", "Tên Tour Không Được Bỏ Trống!");
-                return View(tour);
-            }
-            if (string.IsNullOrEmpty(tour.DiemXuatPhat) == true)
-            {
-                ModelState.AddModelError("", "Điểm Xuất Phát Không Được Bỏ Trống!");
-                return View(tour);
-            }
-             if (string.IsNullOrEmpty(tour.GiaCho.ToString()) == true)
-            {
-                ModelState.AddModelError("", "Giá Chỗ Không Được Bỏ Trống!");
-                return View(tour);
-            }
-            db.Tours.Add(tour);
-            db.SaveChanges();
-            if (tour.MaTour.Length > 0)
-            {
+                db.Tours.Add(tour);
+                db.SaveChanges();
                 return RedirectToAction("DanhSachTour");
             }
-            else
-            {
-                ModelState.AddModelError("", "Lỗi Thêm!");
-                return View(tour);  
-            }
-
-            /*  if (ModelState.IsValid)
-              {
-                  db.Tours.Add(tour);
-                  db.SaveChanges();
-                  return RedirectToAction("Index");
-              }
-              return View(tour);*/
+            return View(tour);
         }
         //Xóa Tour
         [Route("XoaTour")]
@@ -259,11 +203,32 @@ namespace BTLNHOM10.Areas.Admin.Controllers
                TempData["Message"] = "Không xóa được";
                return RedirectToAction("DanhsachTour");
             }
+           
             var list = db.DiadiemTours.Where(x => x.MaTour == matour);
             if (list != null) db.RemoveRange(list);
             db.Remove(db.Tours.Find(matour));
             db.SaveChanges();
             return RedirectToAction("DanhsachTour");
+        }
+        //khachhang
+        [Route("danhsachkh")]
+        [Authentication]
+        public IActionResult danhsachkh()
+        {
+           
+            var lstkh = db.KhachHangs.OrderBy(x => x.TenKh).ToList();
+          
+            return View(lstkh);
+        }
+        //chitietkh
+        [Route("chitietkh")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult chitietkh(string makh)
+        {
+
+            var ct = db.KhachHangs.SingleOrDefault(m => m.MaKh == makh);
+            return View(ct);
         }
         //Booking
         //Danhsachbooking
@@ -277,15 +242,7 @@ namespace BTLNHOM10.Areas.Admin.Controllers
             PagedList<Booking> lst = new PagedList<Booking>(lstt, pageNumber, pageSize);
             return View(lst);
         }
-        [Route("ChiTietTinTuc")]
-        [HttpGet]
-        [Authentication]
-        public IActionResult ChiTietTinTuc(string id)
-        {
-            
-            var ct= db.TinTucs.SingleOrDefault(m=>m.MaTin== id);
-            return View(ct);
-        }
+        // chi tiet booking
         [Route("Chitietbooking")]
         [Authentication]
         public IActionResult Chitietbooking(string mabk)
@@ -299,12 +256,25 @@ namespace BTLNHOM10.Areas.Admin.Controllers
                                 tenkhach=x.TenKh,
                                 tentour=y.TenTour,
                                 tennv= z.TenNv,
-                                matour=i.MaTour
+                                matour=i.MaTour,
+                                maKh=x.MaKh
                             }).ToList();
             ViewBag.tenkhach = tenkhach;
             var ct = db.Bookings.SingleOrDefault(m => m.MaBk == mabk);
             return View(ct);
         }
+        //xoa booking 
+        [Route("xoabooking")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult xoabooking(string mabk)
+        {
+            
+            db.Remove(db.Bookings.Find(mabk));
+            db.SaveChanges();TempData["Message"] = "Thành công";
+            return RedirectToAction("danhsachBooking");
+        }
+       
         //nhan su
         [Route("danhsachnhansu")]
         [Authentication]
@@ -379,11 +349,12 @@ namespace BTLNHOM10.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("danhsachtknv");
         }
-        [Route("themtknv")]
+        //them tknv
+        [Route("themtknvmoi")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authentication]
-        public IActionResult themtknv(TaiKhoan tk)
+        public IActionResult themtknvmoi(TaiKhoan tk)
         {
             if (ModelState.IsValid)
             {
@@ -392,6 +363,54 @@ namespace BTLNHOM10.Areas.Admin.Controllers
                 return RedirectToAction("danhsachtknv");
             }
             return View(tk);
+        } 
+        //Tin Tuc
+        // chi tiet tin tuc
+        [Route("ChiTietTinTuc")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult ChiTietTinTuc(string id)
+        {
+            
+            var ct= db.TinTucs.SingleOrDefault(m=>m.MaTin== id);
+            return View(ct);
+        }
+       
+        //xoa tin 
+        [Route("xoattin")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult xoatin(string matin)
+        {
+            var listanh = db.AnhTins.Where(x => x.MaTin == matin);
+            db.RemoveRange(listanh);
+            db.Remove(db.TinTucs.Find(matin));
+            db.SaveChanges();
+            return RedirectToAction("danhsachTT");
+        }
+        //them tin 
+        [Route("themtin")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult themtin()
+        {
+            ViewBag.MaNv = new SelectList(db.NhanViens, "MaNv", "MaNv");
+            return View();
+        }
+        [Route("themtin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authentication]
+        public IActionResult themtin(TinTuc matin)
+        {
+            /*TempData["Message"] = "Không thêm đc";*/
+            if (ModelState.IsValid)
+            {
+                db.TinTucs.Add(matin);
+                db.SaveChanges();
+                return RedirectToAction("DanhSachTT");
+            }
+            return View(matin);
         }
 
     }

@@ -6,10 +6,7 @@
 }
 
 <h1>Booking</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@TempData["Message"]
 <table class="table">
     <thead>
         <tr class="table-warning">
@@ -68,7 +65,7 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.MaBk">Edit</a> |
                 <a asp-action="ChitietBooking" asp-route-mabk="@item.MaBk">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaBk">Delete</a>
+                    <a asp-action="xoabooking" asp-route-mabk="@item.MaBk">Xóa</a>
             </td>
         </tr>
 }

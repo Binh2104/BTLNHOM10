@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BTLNHOM10.Models.TinTuc>
 @using BTLNHOM10.Models
-@using X.PagedList.Mvc.Core
+@*@using X.PagedList.Mvc.Core*@
 @*@model X.PagedList.IPagedList<Tour>*@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
@@ -11,7 +11,7 @@
 <h1>DanhsachTT</h1>
 
 <p>
-    <a asp-action="ThemMotTTMoi">Create New</a>
+    <a asp-action="themtin">Thêm Mới</a>
 </p>
 
 <table class="table table_tintuc table-bordered">
@@ -41,7 +41,7 @@
                
         <tr>
                 <td>
-                        @Html.DisplayFor(modelItem => item.Anh)
+                    <img src="@Url.Content("../../img/AnhTinTuc/"+item.Anh)" class="image">
                 </td>
                 <td>
                         @Html.DisplayFor(modelItem => item.NgayDang)
@@ -56,9 +56,9 @@
                         @Html.DisplayFor(modelItem => item.MaNv)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.MaTin">Edit</a> |
+                    <a asp-action="Edit" asp-route-id="@item.MaTin">Sửa</a> |
                     <a asp-action="ChitietTinTuc" asp-route-id="@item.MaTin">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MaTin">Delete</a>
+                    <a asp-action="xoatin" asp-route-matin="@item.MaTin">Xóa</a>
                 </td>
             </tr>
             }

@@ -17,7 +17,8 @@
         <dd class = "col-sm-10">
             @foreach (var item in ViewBag.tenkhach)
             {
-                @item.tenkhach.ToString()
+                <a asp-controller="HomeAdmin" asp-action="Chitietkh" asp-route-makh="@item.maKh">@item.tenkhach.ToString()</a>
+                
             }
 
         </dd>

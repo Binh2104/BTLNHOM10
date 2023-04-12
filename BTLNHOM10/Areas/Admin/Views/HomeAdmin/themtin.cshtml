@@ -1,50 +1,44 @@
 ﻿@model BTLNHOM10.Models.TinTuc
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "ThemMotTTMoi";
+    ViewData["Title"] = "themtin";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-    BTLNHOM10.Models.NhanVien db = new BTLNHOM10.Models.NhanVien();
 }
 
-<h1>ThemMotTTMoi</h1>
+<h1>themtin</h1>
 
 <h4>TinTuc</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="ThemMotTTMoi">
+        <form asp-action="themtin">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="MaTin" class="control-label">Mã Tin</label>
+                <label asp-for="MaTin" class="control-label"></label>
                 <input asp-for="MaTin" class="form-control" />
                 <span asp-validation-for="MaTin" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Anh" class="control-label">Ảnh Tin</label>
+                <label asp-for="Anh" class="control-label"></label>
                 <input type="file" asp-for="Anh" class="form-control" />
                 <span asp-validation-for="Anh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NgayDang" class="control-label">Ngày đăng</label>
+                <label asp-for="NgayDang" class="control-label"></label>
                 <input type="date" asp-for="NgayDang" class="form-control" />
                 <span asp-validation-for="NgayDang" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MaNv" class="control-label">Mã Nhân Viên </label>
-                <select asp-for="MaNv" class="form-control" >
-                @foreach(var item in db.MaNv.ToList() )
-                {
-                    <option >@item</option>
-                    }
-                </select>
+                <label asp-for="MaNv" class="control-label"></label>
+                <select asp-for="MaNv" class ="form-control" asp-items="ViewBag.MaNv"></select>
             </div>
             <div class="form-group">
-                <label asp-for="MoTa" class="control-label">Mô tả</label>
-                <input  asp-for="MoTa" class="form-control" />
+                <label asp-for="MoTa" class="control-label"></label>
+                <input asp-for="MoTa" class="form-control" />
                 <span asp-validation-for="MoTa" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NoiDung" class="control-label">Nội dung</label>
+                <label asp-for="NoiDung" class="control-label"></label>
                 <input asp-for="NoiDung" class="form-control" />
                 <span asp-validation-for="NoiDung" class="text-danger"></span>
             </div>
@@ -58,3 +52,4 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+

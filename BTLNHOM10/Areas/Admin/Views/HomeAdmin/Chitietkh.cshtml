@@ -1,0 +1,59 @@
+﻿@model BTLNHOM10.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Chitietkh";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Chi Tiết Khách Hàng</h1>
+
+<div>
+    <h4>KhachHang</h4>
+    <hr />
+    <dl class="row"> <dt class = "col-sm-2">
+            Tên Khách Hàng
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TenKh)
+        </dd>
+        <dt class = "col-sm-2">
+           Ngày Sinh
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NgaySinh)
+        </dd>
+        <dt class = "col-sm-2">
+            Số Điện Thoại
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sdt)
+        </dd>      
+        <dt class = "col-sm-2">
+            Địa Chỉ
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+        <dt class = "col-sm-2">
+            Giới Tính
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GioiTinh)
+        </dd>
+        <dt class = "col-sm-2">
+            Email
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            UserName
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.MaKh">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

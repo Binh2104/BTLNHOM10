@@ -6,7 +6,7 @@
 }
 
 <h1>Booking</h1>
-@TempData["Message"]
+@*<p style="color:red; font-weight:bold;font-style:italic>@TempData["Message"]</p>*@
 <table class="table">
     <thead>
         <tr class="table-warning">
@@ -63,9 +63,9 @@
                 @Html.DisplayFor(modelItem => item.MaTour)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.MaBk">Edit</a> |
-                <a asp-action="ChitietBooking" asp-route-mabk="@item.MaBk">Details</a> |
-                    <a asp-action="xoabooking" asp-route-mabk="@item.MaBk">Xóa</a>
+                <a asp-action="chinhsuabooking" asp-route-mabk="@item.MaBk">Sửa</a> |
+                <a asp-action="ChitietBooking" asp-route-mabk="@item.MaBk">Chi tiết</a> |
+                <a asp-action="xoabooking" asp-route-mabk="@item.MaBk">Xóa</a>
             </td>
         </tr>
 }

@@ -1,0 +1,45 @@
+﻿@model BTLNHOM10.Models.NhanVien
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "chinhsuaNV";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Chỉnh Sửa Nhân Viên</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="chinhsuaNV">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GioiTinh" class="control-label">Giới Tính</label>
+                <input asp-for="GioiTinh" class="form-control" />
+                <span asp-validation-for="GioiTinh" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="MaNv" />
+            <div class="form-group">
+                <label asp-for="TenNv" class="control-label">Tên Nhân Viên</label>
+                <input asp-for="TenNv" class="form-control" />
+                <span asp-validation-for="TenNv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoDienThoai" class="control-label">Số Điện Thoại</label>
+                <input asp-for="SoDienThoai" class="form-control" />
+                <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiaChi" class="control-label">Địa Chỉ</label>
+                <input asp-for="DiaChi" class="form-control" />
+                <span asp-validation-for="DiaChi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="danhsachnhansu">Back to List</a>
+</div>
+

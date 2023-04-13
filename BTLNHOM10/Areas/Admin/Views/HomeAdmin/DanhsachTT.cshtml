@@ -16,7 +16,7 @@
 
 <table class="table table_tintuc table-bordered">
     <thead>
-        <tr>
+        <tr class="table-warning">
             <th>
                 Anh
             </th>
@@ -36,10 +36,18 @@
         </tr>
     </thead>
     <tbody id="tbody-tintuc">
-        @foreach(var item in Model)
+        @{
+            int i = 0;
+            string @cls = "table-success";
+        }
+        @foreach (var item in Model)
         {
-               
-        <tr>
+            i = i + 1;
+            if (i % 2 == 0)
+            {
+                cls = "table-primary";
+            }
+            <tr class="@cls">
                 <td>
                     <img src="@Url.Content("../../img/AnhTinTuc/"+item.Anh)" class="image">
                 </td>
@@ -56,8 +64,8 @@
                         @Html.DisplayFor(modelItem => item.MaNv)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.MaTin">Sửa</a> |
-                    <a asp-action="ChitietTinTuc" asp-route-id="@item.MaTin">Details</a> |
+                   
+                    <a asp-action="ChitietTinTuc" asp-route-id="@item.MaTin">Chi Tiết</a> |
                     <a asp-action="xoatin" asp-route-matin="@item.MaTin">Xóa</a>
                 </td>
             </tr>

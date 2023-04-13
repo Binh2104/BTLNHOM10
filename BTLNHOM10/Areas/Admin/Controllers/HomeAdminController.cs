@@ -48,17 +48,6 @@ namespace BTLNHOM10.Areas.Admin.Controllers
                 return RedirectToAction("DanhSachTour");
         }
         //xoa dia diem cho tour
-
-        //TinTuc
-        [Route("DanhsachTT")]
-        [Authentication]
-        public IActionResult DanhsachTT(int page = 1)
-        {
-          
-            var lstTT = db.TinTucs.OrderBy(x => x.MaTin).ToList();
-    
-            return View(lstTT);
-        }
         //DIEMTHAMQUAN
         [Route("DanhsachDD")]
         [Authentication]
@@ -131,6 +120,16 @@ namespace BTLNHOM10.Areas.Admin.Controllers
             db.Remove(db.DiemThamQuans.Find(madd));
             db.SaveChanges();
             return RedirectToAction("DanhsachDD");
+        }
+        //chi tiet diem tham quan 
+        [Route("ChitietDD")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult ChitietDD(string madd)
+        {
+
+            var ct = db.DiemThamQuans.SingleOrDefault(m => m.MaDd == madd);
+            return View(ct);
         }
         //TOUR
         [Route("DanhsachTour")]
@@ -274,7 +273,36 @@ namespace BTLNHOM10.Areas.Admin.Controllers
             db.SaveChanges();TempData["Message"] = "Thành công";
             return RedirectToAction("danhsachBooking");
         }
-       
+        //chinh sua booking
+
+        [Route("chinhsuabooking")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult chinhsuabooking(String mabk)
+        {
+            ViewBag.MaTour = new SelectList(db.Tours, "MaTour", "TenTour");
+            Booking bk = db.Bookings.Find(mabk);
+            return View(bk);
+        }
+        [Route("chinhsuabooking")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authentication]
+        public IActionResult chinhsuabooking(Booking mabk)
+        {
+            if (ModelState.IsValid)
+            {               
+                db.Entry(mabk).State = EntityState.Modified;
+                db.SaveChanges();
+                TempData["Message"] = "Sửa Thành Công";
+                return RedirectToAction("DanhSachBoogking");
+            }
+            else
+            {
+                return View(mabk);
+            }
+            
+        }
         //nhan su
         [Route("danhsachnhansu")]
         [Authentication]
@@ -325,6 +353,30 @@ namespace BTLNHOM10.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("danhsachnhansu");
         }
+        //chinh sua
+        [Route("chinhsuaNV")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult chinhsuaNV(String id)
+        {
+
+            NhanVien sp = db.NhanViens.Find(id);
+            return View(sp);
+        }
+        [Route("chinhsuaNV")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authentication]
+        public IActionResult chinhsuaNV(NhanVien id)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(id).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("danhsachnhansu");
+            }
+            return View(id);
+        }
         //Tài Khoản 
         [Route("danhsachtknv")]
         [Authentication]
@@ -349,22 +401,16 @@ namespace BTLNHOM10.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("danhsachtknv");
         }
-        //them tknv
-        [Route("themtknvmoi")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //TinTuc
+        [Route("DanhsachTT")]
         [Authentication]
-        public IActionResult themtknvmoi(TaiKhoan tk)
+        public IActionResult DanhsachTT(int page = 1)
         {
-            if (ModelState.IsValid)
-            {
-                db.TaiKhoans.Add(tk);
-                db.SaveChanges();
-                return RedirectToAction("danhsachtknv");
-            }
-            return View(tk);
-        } 
-        //Tin Tuc
+
+            var lstTT = db.TinTucs.OrderBy(x => x.MaTin).ToList();
+
+            return View(lstTT);
+        }
         // chi tiet tin tuc
         [Route("ChiTietTinTuc")]
         [HttpGet]

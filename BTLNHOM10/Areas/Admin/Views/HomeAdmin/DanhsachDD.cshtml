@@ -51,9 +51,9 @@
                     @Html.DisplayFor(modelItem => item.Mien)
             </td>
             <td>
-                <a asp-action="ChinhSuaDD" asp-route-madd="@item.MaDd">Edit</a> |
-                <a  >Details</a> |
-                <a asp-action="XoaDD" asp-route-madd="@item.MaDd">Delete</a>
+                <a asp-action="ChinhSuaDD" asp-route-madd="@item.MaDd">Sửa</a> |
+                <a asp-action="ChitietDD" asp-route-madd="@item.MaDd">Chi Tiết</a> |
+                <a asp-action="XoaDD" asp-route-madd="@item.MaDd">Xóa</a>
             </td>
         </tr>
 }

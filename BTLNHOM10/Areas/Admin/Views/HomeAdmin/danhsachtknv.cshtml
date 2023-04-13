@@ -12,7 +12,7 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
+        <tr class="table-warning">
             <th>
                 Tên Đăng Nhập
             </th>
@@ -26,8 +26,18 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-            <tr>
+        @{
+            int i = 0;
+            string @cls = "table-success";
+        }
+        @foreach (var item in Model)
+        {
+            i = i + 1;
+            if (i % 2 == 0)
+            {
+                cls = "table-primary";
+            }
+            <tr class="@cls">
                 <td>
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>

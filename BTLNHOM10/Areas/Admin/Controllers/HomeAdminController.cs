@@ -354,28 +354,25 @@ namespace BTLNHOM10.Areas.Admin.Controllers
             return RedirectToAction("danhsachnhansu");
         }
         //chinh sua
-        [Route("chinhsuaNV")]
+        [Route("chinhsuaa")]
         [HttpGet]
         [Authentication]
-        public IActionResult chinhsuaNV(String id)
+        public IActionResult chinhsuaa(String id)
         {
-
+            ViewBag.UserName = new SelectList(db.TaiKhoans, "UserName", "UserName");
             NhanVien sp = db.NhanViens.Find(id);
             return View(sp);
         }
-        [Route("chinhsuaNV")]
+        [Route("chinhsuaa")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authentication]
-        public IActionResult chinhsuaNV(NhanVien id)
-        {
-            if (ModelState.IsValid)
-            {
+        public IActionResult chinhsuaa(NhanVien id)
+        {           
+ 
                 db.Entry(id).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("danhsachnhansu");
-            }
-            return View(id);
         }
         //Tài Khoản 
         [Route("danhsachtknv")]
@@ -400,6 +397,27 @@ namespace BTLNHOM10.Areas.Admin.Controllers
             db.Remove(db.TaiKhoans.Find(username));
             db.SaveChanges();
             return RedirectToAction("danhsachtknv");
+        }
+        [Route("themtknv")]
+        [HttpGet]
+        [Authentication]
+        public IActionResult themtknv()
+        {
+            return View();
+        }
+        [Route("themtknv")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authentication]
+        public IActionResult themtknv(TaiKhoan tk)
+        {
+            if (ModelState.IsValid)
+            {
+                db.TaiKhoans.Add(tk);
+                db.SaveChanges();
+                return RedirectToAction("danhsachtknv");
+            }
+            return View(tk);
         }
         //TinTuc
         [Route("DanhsachTT")]
@@ -440,24 +458,24 @@ namespace BTLNHOM10.Areas.Admin.Controllers
         [Authentication]
         public IActionResult themtin()
         {
-            ViewBag.MaNv = new SelectList(db.NhanViens, "MaNv", "MaNv");
+            ViewBag.MaNv = new SelectList(db.NhanViens, "MaNv", "TenNv");
             return View();
         }
         [Route("themtin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authentication]
-        public IActionResult themtin(TinTuc matin)
+        public IActionResult themtin(TinTuc tk)
         {
-            /*TempData["Message"] = "Không thêm đc";*/
             if (ModelState.IsValid)
             {
-                db.TinTucs.Add(matin);
+                db.TinTucs.Add(tk);
                 db.SaveChanges();
-                return RedirectToAction("DanhSachTT");
+                return RedirectToAction("danhsachTT");
             }
-            return View(matin);
+            return View(tk);
         }
+
 
     }
 }

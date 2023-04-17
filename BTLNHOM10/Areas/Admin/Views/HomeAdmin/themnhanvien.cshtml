@@ -5,9 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>themnhanvien</h1>
-
-<h4>NhanVien</h4>
+<h1>Thêm Tài Khoản Nhân Viên</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -40,7 +38,7 @@
                 <span asp-validation-for="DiaChi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
+                <label asp-for="UserName" class="control-label">Tài Khoản Nhân Viên</label>
                 <select asp-for="UserName" class ="form-control" asp-items="ViewBag.UserName"></select>
             </div>
             <div class="form-group">
@@ -51,6 +49,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="danhsachnhansu">Back to List</a>
 </div>
 

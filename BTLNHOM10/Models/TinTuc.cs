@@ -9,7 +9,7 @@ public partial class TinTuc
 
     public string? Anh { get; set; }
 
-    public DateOnly NgayDang { get; set; }
+    public DateOnly? NgayDang { get; set; }
 
     public string MaNv { get; set; } = null!;
 

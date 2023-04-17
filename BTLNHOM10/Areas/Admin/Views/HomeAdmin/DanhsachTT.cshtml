@@ -52,7 +52,8 @@
                     <img src="@Url.Content("../../img/AnhTinTuc/"+item.Anh)" class="image">
                 </td>
                 <td>
-                        @Html.DisplayFor(modelItem => item.NgayDang)
+                    <p>@item.NgayDang</p>
+                       @* @Html.DisplayFor(modelItem => item.NgayDang)*@
                 </td>
                 <td>
                         @Html.DisplayFor(modelItem => item.MoTa)
